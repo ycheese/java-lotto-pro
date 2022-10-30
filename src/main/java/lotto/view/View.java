@@ -1,5 +1,6 @@
 package lotto.view;
 
+import lotto.domain.LottoNumber;
 import lotto.domain.LottoResult;
 import lotto.domain.Rank;
 
@@ -24,9 +25,14 @@ public class View {
         print(String.format(MSG_LOTTO_COUNT, count));
     }
 
-    public List<Integer> insertWinningLotto() {
+    public List<LottoNumber> insertWinningLotto() {
         OutputView.print("지난 주 당첨 번호를 입력해 주세요.");
         return InputView.inputLotto();
+    }
+
+    public LottoNumber insertBonusBall() {
+        OutputView.print("보너스 볼을 입력해 주세요.");
+        return InputView.inputBonusBall();
     }
 
     public void printResult(LottoResult result) {
@@ -34,7 +40,7 @@ public class View {
         OutputView.print("---------");
         Arrays.stream(Rank.values())
                 .filter(rank -> rank != Rank.NONE)
-                .forEach(rank -> print(String.format(MSG_RESULT, rank.getCount(), rank.getPrize(), result.getRankCount(rank))));
+                .forEach(rank -> print(String.format(MSG_RESULT, rank.getMatchCount(), rank.getPrize(), result.getRankCount(rank))));
         print(String.format(MSG_RETURN_RATE, result.getReturnRate()));
     }
 }
